@@ -30,11 +30,14 @@ console.log('example task:', processFirstItem(['foo','bar'],function(str){return
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+      Counter1 declares the variable "count" inside of the function, while count2 declares the variable outside of the function.
   
   2. Which of the two uses a closure? How can you tell?
+      Counter1 and counter2 both use closures. In counter1, the counter function is nested inside the counterMaker function, and it can access the variable in counterMaker. In counter2, the counter2 function is able to reach outside itself to access the "count" variable.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
-     counter2 be better?  
+     counter2 be better? 
+      The counter1 code would be preferable in situations where you don't want the variable to be easily manipulated, such as with voting machine counts. The counter2 code would be preferable in a situation where you would want to be able to possibly manipulate the "count" variable later in your code, like if you need to reset the score of a game. 
 */
 
 // counter1 code
@@ -67,7 +70,7 @@ NOTE: This will be a callback function for the tasks below
 function inning(){
     return Math.floor(Math.random() * 3);
 }
-console.log('task 1:', inning());
+console.log('task 2:', inning());
 
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
@@ -84,10 +87,20 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(callback, number){
-  
+function finalScore(callback, innings){
+  let homeScore = 0;
+  let awayScore = 0;
+
+  for (let i = 0; i < innings; i++) {
+    homeScore = homeScore + callback();
+    awayScore = awayScore + callback();
+  }
+  return {
+    Home: homeScore,
+    Away: awayScore,
+  }
 }
-console.log(finalScore('task 2:', inning, 9));
+console.log('task 3:', finalScore(inning, 9));
 
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -107,6 +120,7 @@ function getInningScore(callback) {
   /*Your Code Here */
 
 }
+console.log('task 4:', getInningScore(inning));
 
 
 /* STRETCH: ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️

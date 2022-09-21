@@ -117,7 +117,10 @@ For example: invoking getInningScore(inning) might return this object:
 
 
 function getInningScore(callback) {
-  /*Your Code Here */
+  return {
+    Home: callback(),
+    Away: callback(),
+  }
 
 }
 console.log('task 4:', getInningScore(inning));
@@ -163,10 +166,19 @@ Use the scoreboard function below to do the following:
   "This game will require extra innings: Away 10 - Home 10"
 ] */
 // NOTE: There is no test associated with this code; if your output matches the given example, consider it complete!
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
-}
+function scoreboard(inningScoreCallback, callback, innings) {
+  const InningScore = [];
+  let homeScore = 0;
+  let awayScore = 0;
 
+  for (let i = 0; i < innings; i++) {
+    const thisInning = inningScoreCallback(callback);
+    homeScore = homeScore + thisInning;
+    awayScore = awayScore + thisInning;
+    
+  }
+}
+console.log('task 5:', scoreboard(getInningScore, inning, 9));
 
 
 

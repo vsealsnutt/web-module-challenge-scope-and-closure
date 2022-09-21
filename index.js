@@ -167,16 +167,23 @@ Use the scoreboard function below to do the following:
 ] */
 // NOTE: There is no test associated with this code; if your output matches the given example, consider it complete!
 function scoreboard(inningScoreCallback, callback, innings) {
-  const InningScore = [];
+  const inningScore = [];
   let homeScore = 0;
   let awayScore = 0;
 
   for (let i = 0; i < innings; i++) {
     const thisInning = inningScoreCallback(callback);
-    homeScore = homeScore + thisInning;
-    awayScore = awayScore + thisInning;
-    
+    homeScore = homeScore + thisInning.Home;
+    awayScore = awayScore + thisInning.Away;
+
+    inningScore.push(`Inning ${i + 1}: Away ${thisInning.Away} - Home ${thisInning.Home}`);
   }
+  if(homeScore === awayScore) {
+    inningScore.push(`This game will require extra innings: Away ${thisInning.Away} - Home ${thisInning.Home}`);
+  } else {
+    inningScore.push(`Final score: Away ${awayScore} - Home ${homeScore}`);
+  }
+  return inningScore;
 }
 console.log('task 5:', scoreboard(getInningScore, inning, 9));
 
